@@ -10,7 +10,12 @@ function copyDir() {
         if (error) {
             return console.error(error);
         }
-
+        fs.readdir(toFolder, (error, files) => {
+            files.forEach((file) => {
+                const filePath = path.join(toFolder, file);
+                fs.unlink(filePath, () => { });
+            });
+        });
         fs.readdir(fromFolder, { withFileTypes: true }, (error, files) => {
             if (error) {
                 console.log(error.message)
